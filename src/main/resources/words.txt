@@ -1,0 +1,5 @@
+animals cat dog bear frog lion rabbit monkey turtle panda parrot elephant alligator kangaroo rhinoceros crocodile
+countries USA Laos Peru Mali Cuba Brazil Canada Russia Poland France Argentina Australia Indonesia Portugal Uzbekistan
+fruits lime kiwi plum pear fig orange apple banana cherry melon pineapple blueberry watermelon grapefruit strawberry
+sports golf judo yoga polo dive soccer tennis boxing skiing hockey basketball volleyball athletics badminton snowboarding
+vegetables kale leek corn bean peas carrot garlic radish pepper onion cucumber broccoli asparagus cauliflower zucchini
