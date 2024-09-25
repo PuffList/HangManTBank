@@ -1,6 +1,9 @@
 package backend.academy;
 
+import java.io.PrintStream;
+
 public class HangmanVisualizer {
+    private static final PrintStream OUT = System.out;
     private final String[] hangmanStages = {
         """
         -----
@@ -63,7 +66,7 @@ public class HangmanVisualizer {
     public void displayHangman(int remainingAttempts) {
         int stageIndex = hangmanStages.length - remainingAttempts - 1;
         if (stageIndex >= 0) {
-            System.out.println(hangmanStages[stageIndex]);
+            OUT.println(hangmanStages[stageIndex]);
         }
     }
 }

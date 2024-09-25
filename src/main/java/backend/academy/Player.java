@@ -17,7 +17,7 @@ public class Player {
     }
 
     public void display(String message) {
-        System.out.println(message);
+        OUT.println(message);
     }
 
 }

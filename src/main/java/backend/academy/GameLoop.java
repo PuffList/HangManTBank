@@ -14,7 +14,7 @@ public class GameLoop {
     public void start() {
         player.display("Welcome to Hangman!");
 
-        while(!game.isGameOver()) {
+        while (!game.isGameOver()) {
             player.display("Current word: " + game.getCurrentWordState());
             player.display("Attempts left: " + game.getRemainingAttempts());
             visualizer.displayHangman(game.getRemainingAttempts());

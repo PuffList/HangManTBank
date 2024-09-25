@@ -8,10 +8,11 @@ public class Game {
     private Set<Character> guessedLetters = new HashSet<>();
     private int remainingAttempts;
     private StringBuilder currentWordState;
+    private static final int MIN_WORD_LENGTH = 3;
 
     public Game(String word, int maxAttempts) {
 
-        if (word.length() < 3) {
+        if (word.length() < MIN_WORD_LENGTH) {
             throw new IllegalArgumentException("Wrong word length");
         }
 
@@ -30,23 +31,23 @@ public class Game {
     }
 
     public String makeGuess(char letter) {
-        letter = Character.toLowerCase(letter);
+        char lowerCaseLetter = Character.toLowerCase(letter);
 
-        if (!Character.isLetter(letter) || letter < 'a' || letter > 'z') {
+        if (!Character.isLetter(lowerCaseLetter) || lowerCaseLetter < 'a' || lowerCaseLetter > 'z') {
             return "Wrong Enter. Please enter a one letter from english alphabet";
         }
 
-        if (guessedLetters.contains(letter)) {
+        if (guessedLetters.contains(lowerCaseLetter)) {
             return "This letter is already guessed";
         }
 
-        guessedLetters.add(letter);
+        guessedLetters.add(lowerCaseLetter);
 
-        if (wordToGuess.contains(String.valueOf(letter))) {
+        if (wordToGuess.contains(String.valueOf(lowerCaseLetter))) {
 
             for (int i = 0; i < wordToGuess.length(); i++) {
-                if (wordToGuess.charAt(i) == letter) {
-                    currentWordState.setCharAt(i, letter);
+                if (wordToGuess.charAt(i) == lowerCaseLetter) {
+                    currentWordState.setCharAt(i, lowerCaseLetter);
                 }
             }
 
