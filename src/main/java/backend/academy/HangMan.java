@@ -3,11 +3,11 @@ package backend.academy;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
-import java.io.PrintStream;
 
 public class HangMan {
 
@@ -20,10 +20,13 @@ public class HangMan {
     private static final String YOUR_CHOICE_MSG = "Your choice: ";
     private static final String ERROR_READING_FILE_MSG = "Error while reading a file: ";
     private static final String WORDS_FILE_PATH = "src/main/resources/words.txt";
+    private static final String EASY = "easy";
+    private static final String MEDIUM = "medium";
+    private static final String HARD = "hard";
+    private static final int EASY_WORD_MAX_LENGTH = 4;
+    private static final int MEDIUM_WORD_MAX_LENGTH = 7;
 
-    /**
-     * Main method to start the Hangman game.
-     */
+     //Main method to start the Hangman game.
     public static void main(String[] args) {
         HangMan player = new HangMan();
         player.run();
@@ -90,7 +93,7 @@ public class HangMan {
             OUT.println("Choose difficulty level: easy, medium, hard");
             OUT.print(YOUR_CHOICE_MSG);
             String difficulty = scanner.nextLine().toLowerCase();
-            if (difficulty.equals("easy") || difficulty.equals("medium") || difficulty.equals("hard")) {
+            if (difficulty.equals(EASY) || difficulty.equals(MEDIUM) || difficulty.equals(HARD)) {
                 correctDifficulty = true;
                 loadingAndFindWord(difficulty);
             } else {
@@ -118,11 +121,11 @@ public class HangMan {
             reader.close();
 
             for (String word : words) {
-                if (difficult.equals("easy") && word.length() <= 4) {
+                if (difficult.equals(EASY) && word.length() <= EASY_WORD_MAX_LENGTH) {
                     filteredWords.add(word);
-                } else if (difficult.equals("medium") && word.length() > 4 && word.length() <= 7) {
+                } else if (difficult.equals(MEDIUM) && word.length() > EASY_WORD_MAX_LENGTH && word.length() <= MEDIUM_WORD_MAX_LENGTH) {
                     filteredWords.add(word);
-                } else if (difficult.equals("hard") && word.length() > 7) {
+                } else if (difficult.equals(HARD) && word.length() > MEDIUM_WORD_MAX_LENGTH) {
                     filteredWords.add(word);
                 }
             }
@@ -136,4 +139,3 @@ public class HangMan {
         }
     }
 }
-
