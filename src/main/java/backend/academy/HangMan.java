@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
+@SuppressWarnings("uncommentedmain")
 public class HangMan {
 
     private String chosenCategory = " ";
@@ -26,9 +27,6 @@ public class HangMan {
     private static final int EASY_WORD_MAX_LENGTH = 4;
     private static final int MEDIUM_WORD_MAX_LENGTH = 7;
 
-    /**
-     * Entry point of the Hangman game. Initializes and starts the game.
-     */
     public static void main(String[] args) {
         HangMan player = new HangMan();
         player.run();
