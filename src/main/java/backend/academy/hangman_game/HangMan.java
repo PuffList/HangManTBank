@@ -81,7 +81,9 @@ public class HangMan {
             OUT.println("Choose difficulty level: easy, medium, hard");
             OUT.print(YOUR_CHOICE_MSG);
             String difficulty = scanner.nextLine().toLowerCase();
-            if (difficulty.equals(Difficulties.Easy.toString().toLowerCase()) || difficulty.equals(Difficulties.Medium.toString().toLowerCase()) || difficulty.equals(Difficulties.Hard.toString().toLowerCase())) {
+            if (difficulty.equals(Difficulties.Easy.toString().toLowerCase())
+                || difficulty.equals(Difficulties.Medium.toString().toLowerCase())
+                || difficulty.equals(Difficulties.Hard.toString().toLowerCase())) {
                 correctDifficulty = true;
                 loadingAndFindWord(difficulty);
             } else {

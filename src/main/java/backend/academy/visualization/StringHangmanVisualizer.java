@@ -3,16 +3,21 @@ package backend.academy.visualization;
 public class StringHangmanVisualizer implements IHangmanVisualizer<String> {
 
     private final static int VISUALISATION_COUNT = 7;
+
     @Override
     public String getHangmanVisualization(int stage) {
-        stage = VISUALISATION_COUNT - stage - 1;
+        int adjustedStage = VISUALISATION_COUNT - stage - 1;
+        StagesVisualizer stagesVisualizer;
 
-        if (stage < 0) {
+        if (adjustedStage < 0) {
             return "";
         }
+        else {
+            stagesVisualizer = StagesVisualizer.values()[adjustedStage];
+        }
 
-        return switch (stage) {
-            case 0 -> """
+        return switch (stagesVisualizer) {
+            case Stage_0 -> """
             +---+
             |   |
                 |
@@ -20,23 +25,23 @@ public class StringHangmanVisualizer implements IHangmanVisualizer<String> {
                 |
                 |
             =========""";
-            case 1 -> """
-            +---+
-            |   |
-            O   |
-                |
-                |
-                |
-            =========""";
-            case 2 -> """
+            case Stage_1 -> """
             +---+
             |   |
             O   |
+                |
+                |
+                |
+            =========""";
+            case Stage_2 -> """
+            +---+
+            |   |
+            O   |
             |   |
                 |
                 |
             =========""";
-            case 3 -> """
+            case Stage_3 -> """
             +---+
             |   |
             O   |
@@ -44,28 +49,28 @@ public class StringHangmanVisualizer implements IHangmanVisualizer<String> {
                 |
                 |
             =========""";
-            case 4 -> """
+            case Stage_4 -> """
             +---+
             |   |
             O   |
-           /|\\  |
+           /|\\ |
                 |
                 |
             =========""";
-            case 5 -> """
+            case Stage_5 -> """
             +---+
             |   |
             O   |
-           /|\\  |
+           /|\\ |
            /    |
                 |
             =========""";
-            case 6 -> """
+            case Stage_6 -> """
             +---+
             |   |
             O   |
-           /|\\  |
-           / \\  |
+           /|\\ |
+           / \\ |
                 |
             =========""";
             default -> "Something went wrong with hangman visualization";
