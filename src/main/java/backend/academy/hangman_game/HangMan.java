@@ -111,12 +111,15 @@ public class HangMan {
             reader.close();
 
             for (String word : words) {
-                if (difficult.equals(Difficulties.Easy.toString().toLowerCase()) && word.length() <= EASY_WORD_MAX_LENGTH) {
+                if (difficult.equals(Difficulties.Easy.toString().toLowerCase())
+                    && word.length() <= EASY_WORD_MAX_LENGTH) {
                     filteredWords.add(word);
-                } else if (difficult.equals(Difficulties.Medium.toString().toLowerCase()) && word.length() > EASY_WORD_MAX_LENGTH
+                } else if (difficult.equals(Difficulties.Medium.toString().toLowerCase())
+                    && word.length() > EASY_WORD_MAX_LENGTH
                     && word.length() <= MEDIUM_WORD_MAX_LENGTH) {
                     filteredWords.add(word);
-                } else if (difficult.equals(Difficulties.Hard.toString().toLowerCase()) && word.length() > MEDIUM_WORD_MAX_LENGTH) {
+                } else if (difficult.equals(Difficulties.Hard.toString().toLowerCase())
+                    && word.length() > MEDIUM_WORD_MAX_LENGTH) {
                     filteredWords.add(word);
                 }
             }

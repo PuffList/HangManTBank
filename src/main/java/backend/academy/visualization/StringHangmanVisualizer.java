@@ -11,8 +11,7 @@ public class StringHangmanVisualizer implements IHangmanVisualizer<String> {
 
         if (adjustedStage < 0) {
             return "";
-        }
-        else {
+        } else {
             stagesVisualizer = StagesVisualizer.values()[adjustedStage];
         }
 
