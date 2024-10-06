@@ -1,19 +1,23 @@
-package backend.academy;
+package backend.academy.hangman_game;
 
+import lombok.Getter;
 import java.util.HashSet;
 import java.util.Set;
 
 public class Game {
+
+    @Getter
+    private static final int MIN_WORD_LENGTH = 3;
+    @Getter
     private String wordToGuess;
     private Set<Character> guessedLetters = new HashSet<>();
+    @Getter
     private int remainingAttempts;
     private StringBuilder currentWordState;
-    private static final int MIN_WORD_LENGTH = 3;
 
     public Game(String word, int maxAttempts) {
-
         if (word.length() < MIN_WORD_LENGTH) {
-            throw new IllegalArgumentException("Wrong word length");
+            throw new IllegalArgumentException("Wrong word length. Minimum word length is " + MIN_WORD_LENGTH);
         }
 
         this.wordToGuess = word.toLowerCase();
@@ -21,40 +25,35 @@ public class Game {
         this.currentWordState = new StringBuilder("_".repeat(word.length()));
     }
 
-    public String checkBeforeMakeGuess(String input) {
-
+    public LetterState makeGuess(String input) {
         if (input.length() != 1) {
-            return "Wrong enter. Please enter only one character";
+            throw new IllegalArgumentException("Wrong enter. Please enter only one character");
         }
 
-        return makeGuess(input.charAt(0));
-    }
-
-    public String makeGuess(char letter) {
+        char letter = input.charAt(0);
         char lowerCaseLetter = Character.toLowerCase(letter);
 
         if (!Character.isLetter(lowerCaseLetter) || lowerCaseLetter < 'a' || lowerCaseLetter > 'z') {
-            return "Wrong Enter. Please enter a one letter from english alphabet";
+            throw new IllegalArgumentException("Wrong Enter. Please enter a one letter from english alphabet");
         }
 
         if (guessedLetters.contains(lowerCaseLetter)) {
-            return "This letter is already guessed";
+            return LetterState.AlreadyGuessed;
         }
 
         guessedLetters.add(lowerCaseLetter);
 
         if (wordToGuess.contains(String.valueOf(lowerCaseLetter))) {
-
             for (int i = 0; i < wordToGuess.length(); i++) {
                 if (wordToGuess.charAt(i) == lowerCaseLetter) {
                     currentWordState.setCharAt(i, lowerCaseLetter);
                 }
             }
 
-            return "Successful attempt!";
+            return LetterState.Guessed;
         } else {
             remainingAttempts--;
-            return "Wrong letter.";
+            return LetterState.NotGuessed;
         }
     }
 
@@ -69,13 +68,4 @@ public class Game {
     public String getCurrentWordState() {
         return currentWordState.toString();
     }
-
-    public String getWordToGuess() {
-        return wordToGuess;
-    }
-
-    public int getRemainingAttempts() {
-        return remainingAttempts;
-    }
-
 }

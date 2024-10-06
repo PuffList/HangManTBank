@@ -1,4 +1,4 @@
-package backend.academy;
+package backend.academy.hangman_game;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -9,11 +9,8 @@ import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
-@SuppressWarnings("uncommentedmain")
 public class HangMan {
 
-    private String chosenCategory = " ";
-    private String chosenWord = " ";
     private static final int ATTEMPTS = 7;
     private static final List<String> CATEGORIES = new ArrayList<>();
     private static final PrintStream OUT = System.out;
@@ -21,25 +18,17 @@ public class HangMan {
     private static final String YOUR_CHOICE_MSG = "Your choice: ";
     private static final String ERROR_READING_FILE_MSG = "Error while reading a file: ";
     private static final String WORDS_FILE_PATH = "src/main/resources/words.txt";
-    private static final String EASY = "easy";
-    private static final String MEDIUM = "medium";
-    private static final String HARD = "hard";
     private static final int EASY_WORD_MAX_LENGTH = 4;
     private static final int MEDIUM_WORD_MAX_LENGTH = 7;
+    private String chosenCategory = " ";
+    private String chosenWord = " ";
 
-    public static void main(String[] args) {
-        HangMan player = new HangMan();
-        player.run();
-    }
-
-    private void run() {
+    public void run() {
         findCategory();
         chooseDifficulty();
-
-        Player player = new Player();
+        ConsolePlayer player = new ConsolePlayer();
         Game game = new Game(chosenWord, ATTEMPTS);
         GameLoop gameLoop = new GameLoop(player, game);
-
         gameLoop.start();
     }
 
@@ -50,8 +39,8 @@ public class HangMan {
         OUT.println("Please enter one of proposed categories: animals, countries, fruits, sports, vegetables");
         OUT.print(YOUR_CHOICE_MSG);
         String category = scanner.nextLine();
-
         loadingCategories();
+
         while (!categoryFound) {
             for (int i = 0; i < CATEGORIES.size(); i++) {
                 if (category.equalsIgnoreCase(CATEGORIES.get(i))) {
@@ -80,7 +69,6 @@ public class HangMan {
                 }
             }
             reader.close();
-
         } catch (IOException e) {
             ERR.println(ERROR_READING_FILE_MSG + e.getMessage());
         }
@@ -93,7 +81,7 @@ public class HangMan {
             OUT.println("Choose difficulty level: easy, medium, hard");
             OUT.print(YOUR_CHOICE_MSG);
             String difficulty = scanner.nextLine().toLowerCase();
-            if (difficulty.equals(EASY) || difficulty.equals(MEDIUM) || difficulty.equals(HARD)) {
+            if (difficulty.equals(Difficulties.Easy.toString().toLowerCase()) || difficulty.equals(Difficulties.Medium.toString().toLowerCase()) || difficulty.equals(Difficulties.Hard.toString().toLowerCase())) {
                 correctDifficulty = true;
                 loadingAndFindWord(difficulty);
             } else {
@@ -121,20 +109,19 @@ public class HangMan {
             reader.close();
 
             for (String word : words) {
-                if (difficult.equals(EASY) && word.length() <= EASY_WORD_MAX_LENGTH) {
+                if (difficult.equals(Difficulties.Easy.toString().toLowerCase()) && word.length() <= EASY_WORD_MAX_LENGTH) {
                     filteredWords.add(word);
-                } else if (difficult.equals(MEDIUM) && word.length() > EASY_WORD_MAX_LENGTH
+                } else if (difficult.equals(Difficulties.Medium.toString().toLowerCase()) && word.length() > EASY_WORD_MAX_LENGTH
                     && word.length() <= MEDIUM_WORD_MAX_LENGTH) {
                     filteredWords.add(word);
-                } else if (difficult.equals(HARD) && word.length() > MEDIUM_WORD_MAX_LENGTH) {
+                } else if (difficult.equals(Difficulties.Hard.toString().toLowerCase()) && word.length() > MEDIUM_WORD_MAX_LENGTH) {
                     filteredWords.add(word);
                 }
             }
 
             Random randomWord = new Random();
             chosenWord = filteredWords.get(randomWord.nextInt(filteredWords.size()));
-            OUT.println("Selected word: " + chosenWord);  // для отладки, можно убрать
-
+            //OUT.println("Selected word: " + chosenWord);  // для отладки, можно убрать
         } catch (IOException e) {
             ERR.println(ERROR_READING_FILE_MSG + e.getMessage());
         }
